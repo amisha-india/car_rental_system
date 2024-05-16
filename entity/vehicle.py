@@ -1,4 +1,4 @@
-class Car:
+class Vehicle:
     def __init__(
         self,
         vehicleID,
