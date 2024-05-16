@@ -8,7 +8,7 @@ class DBConnUtil:
     @staticmethod
     def getConnection():
         if DBConnUtil.conn is None:
-            connectionString = PropertyUtil.getPropertyString()
+            connectionString = PropertyUtil.get_property_string()
             try:
                 DBConnUtil.conn = pyodbc.connect(connectionString)
             except ConnectionError as e:
