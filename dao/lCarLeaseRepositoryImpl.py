@@ -208,7 +208,7 @@ class PaymentManagementImplementation(PaymentHandling):
         return [{"paymentID": row[0], "leaseID": row[1], "paymentDate": row[2], "amount": row[3]} for row in rows]
     
 
-
+#Initiliasing
 car_manage = CarManagementImplementation()
 customer_manage = CustomerManagementImplementation()
 lease_manage = LeaseManagementImplementation()
