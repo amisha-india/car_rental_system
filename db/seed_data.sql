@@ -1,7 +1,7 @@
 --INsertion
 
 -- Insert data into the Vehicle table
-INSERT INTO Vehicle (vehicleID, make, model, year, dailyRate, status, passengerCapacity, engineCapacity)
+INSERT INTO Vehicle (vehicle_id, make, model, year, daily_rate, status, passenger_capacity, engine_capacity)
 VALUES
 (1, 'Toyota', 'Camry', 2022, 50.00, 1, 4, 1450),
 (2, 'Honda', 'Civic', 2023, 45.00, 1, 7, 1500),
@@ -15,7 +15,7 @@ VALUES
 (10, 'Lexus', 'ES', 2023, 54.00, 1, 4, 2500);
 
 -- Insert data into the Customer table
-INSERT INTO Customer (customerID, firstName, lastName, email, phoneNumber)
+INSERT INTO Customer (customer_id, first_name, last_name, email, phone_number)
 VALUES
 (1, 'John', 'Doe', 'johndoe@example.com', '555-555-5555'),
 (2, 'Jane', 'Smith', 'janesmith@example.com', '555-123-4567'),
@@ -29,7 +29,7 @@ VALUES
 (10, 'Olivia', 'Adams', 'olivia@example.com', '555-765-4321');
 
 -- Insert data into the Lease table
-INSERT INTO Lease (leaseID, vehicleID, customerID, startDate, endDate, leaseType)
+INSERT INTO Lease (lease_id, vehicle_id, customer_id, start_date, end_date, Type)
 VALUES
 (1, 1, 1, '2023-01-01', '2023-01-05', 'Daily'),
 (2, 2, 2, '2023-02-15', '2023-02-28', 'Monthly'),
@@ -43,7 +43,7 @@ VALUES
 (10, 10, 10,'2023-10-10', '2023-10-31', 'Monthly');
 
 -- Insert data into the Payment table
-INSERT INTO Payment (paymentID, leaseID, paymentDate, amount)
+INSERT INTO Payment (payment_id, lease_id, payment_date, amount)
 VALUES
 (1, 1, '2023-01-03', 200.00),
 (2, 2, '2023-02-20', 1000.00),
