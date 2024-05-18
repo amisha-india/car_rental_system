@@ -2,65 +2,65 @@ from abc import ABC, abstractmethod
 from entity import Vehicle, Customer, Lease
 
 
-class CarManagement(ABC):
+class Car_management(ABC):
     @abstractmethod
-    def addCar(self, vehicle: Vehicle):
+    def add_car(self, vehicle: Vehicle):
         pass
 
     @abstractmethod
-    def removeCar(self,vehicleID):
+    def remove_car(self,vehicle_id):
         pass
 
     @abstractmethod
-    def listAvailableCars(self):
+    def list_available_cars(self):
         pass
 
     @abstractmethod
-    def listRentedCars(self):
+    def list_rented_cars(self):
         pass
 
     @abstractmethod
-    def findCarsById(self,vehicleID):
+    def find_cars_by_id(self,vehicle_id):
         pass
 
-class CustomerManagement(ABC):
+class Customer_management(ABC):
 
     @abstractmethod
-    def addCustomer(self, customer:Customer):
-        pass
-
-    @abstractmethod
-    def removeCustomer(self,customerID):
+    def add_customer(self, customer:Customer):
         pass
 
     @abstractmethod
-    def listCustomer(self):
+    def remove_customer(self,customer_id):
         pass
 
     @abstractmethod
-    def findCustomer(self,customerID):
-        pass
-
-class LeaseManagement(ABC):
-
-    @abstractmethod
-    def createLease(self,customerID,carID,startDate,endDate,type):
+    def list_customer(self):
         pass
 
     @abstractmethod
-    def returnCar(self,leaseID):
+    def find_customer(self,customer_id):
+        pass
+
+class Lease_management(ABC):
+
+    @abstractmethod
+    def create_lease(self,customer_id,car_id,start_date,end_date,type):
         pass
 
     @abstractmethod
-    def listActiveLeases(self):
+    def return_car(self,lease_id):
         pass
 
     @abstractmethod
-    def listLeaseHistory(self):
+    def list_active_leases(self):
         pass
 
-class PaymentHandling():
+    @abstractmethod
+    def list_lease_history(self):
+        pass
+
+class Payment_handling():
 
     @abstractmethod
-    def recordPayment(self, lease:Lease,amount,paymentDate):
+    def record_payment(self, lease:Lease,amount,payment_date):
         pass
