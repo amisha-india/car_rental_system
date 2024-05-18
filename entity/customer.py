@@ -1,20 +1,20 @@
 # Customer model for managing the customer record
 class Customer:
-    def __init__(self, customerID, first_name, last_name, email, phoneNumber):
-        self.__customerID = customerID
+    def __init__(self, customer_id, first_name, last_name, email, phone_number):
+        self.__customer_id = customer_id
         self.__first_name = first_name
         self.__last_name = last_name
         self.__email = email
-        self.__phoneNumber = phoneNumber
+        self.__phone_number = phone_number
 
     def get_customer(self):
         return {
-            "customerID": self.__customerID,
+            "customer_id": self.__customer_id,
             "first_name": self.__first_name,
             "last_name": self.__last_name,
             "email": self.__email,
-            "phoneNumber": self.__phoneNumber,
+            "phone_number": self.__phone_number,
         }
 
-    def get_customerID(self):
-        return self.__customerID
+    def get_customer_id(self):
+        return self.__customer_id
