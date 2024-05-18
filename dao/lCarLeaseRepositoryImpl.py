@@ -1,31 +1,30 @@
-from util import DBConnUtil,PropertyUtil
-from dao.ICarLeaseRepository import *
+from util import *
+from dao import *
 from exceptions.custom_excp import *
-from entity import Vehicle
-
-class CarManagementImplementation(CarManagement):
+from datetime import date
+class Car_management_implementation(Car_management):
     def __init__(self):
         self.conn = DBConnUtil.getConnection()
 
-    def addCar(self, vehicle: Vehicle):
-        carInfo = vehicle.get_car_details()
+    def add_car(self, vehicle: Vehicle):
+        car_info = vehicle.get_car_details()
         stmt = self.conn.cursor()
         stmt.execute(
-            f"INSERT INTO vehicle_table(make, model, Year, dailyRate, status, passenger_capacity, engine_capacity) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (carInfo['make'], carInfo['model'], carInfo['Year'] + "-01-01", carInfo['dailyRate'], carInfo['status'], carInfo['passenger_capacity'], carInfo['engine_capacity'])
+            f"INSERT INTO vehicle_table(vehicle_id,make, model, Year, daily_rate, status, passenger_capacity, engine_capacity) VALUES (?,?, ?, ?, ?, ?, ?, ?)",
+            (car_info['vehicle_id'],car_info['make'], car_info['model'], car_info['Year'] + "-01-01", car_info['daily_rate'], car_info['status'], car_info['passenger_capacity'], car_info['engine_capacity'])
         )
         self.conn.commit()
         return "Car added successfully"
 
-    def findCarsById(self, vehicleID):
+    def find_cars_by_id(self, vehicle_id):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM vehicle_table WHERE vehicleID = ?", (vehicleID,))
+        stmt.execute(f"SELECT * FROM vehicle_table WHERE vehicle_id = ?", (vehicle_id,))
         rows = stmt.fetchall()
         if not rows:
             raise CarNotFoundException()
         return [Vehicle(*row) for row in rows]
 
-    def listAvailableCars(self):
+    def list_available_cars(self):
         stmt = self.conn.cursor()
         stmt.execute(f"SELECT * FROM vehicle_table WHERE status = 1")
         rows = stmt.fetchall()
@@ -33,7 +32,7 @@ class CarManagementImplementation(CarManagement):
             raise CarNotFoundException()
         return [Vehicle(*row) for row in rows]
 
-    def listRentedCars(self):
+    def list_rented_cars(self):
         stmt = self.conn.cursor()
         stmt.execute(f"SELECT * FROM vehicle_table WHERE status = 0")
         rows = stmt.fetchall()
@@ -41,15 +40,15 @@ class CarManagementImplementation(CarManagement):
             raise CarNotFoundException()
         return [Vehicle(*row) for row in rows]
 
-    def removeCar(self, vehicleID):
-        self.findCarsById(vehicleID)
+    def remove_car(self, vehicle_id):
+        self.find_cars_by_id(vehicle_id)
         stmt = self.conn.cursor()
-        stmt.execute(f"DELETE FROM vehicle_table WHERE vehicleID = ?", (vehicleID,))
+        stmt.execute(f"DELETE FROM vehicle_table WHERE vehicle_id = ?", (vehicle_id,))
         self.conn.commit()
         return "Car removed successfully"
 
-    def update_car(self, vehicleID):
-        Vehicle = self.findCarsById(vehicleID)
+    def update_car(self, vehicle_id):
+        Vehicle = self.find_cars_by_id(vehicle_id)
         for Vehicle in Vehicle:
             print(Vehicle.get_car_details())
         print("Select value to update ")
@@ -69,7 +68,7 @@ class CarManagementImplementation(CarManagement):
         elif option == 3:
             val_change = "Year"
         elif option == 4:
-            val_change = "dailyRate"
+            val_change = "daily_rate"
         elif option == 5:
             val_change = "status"
         elif option == 6:
@@ -81,33 +80,33 @@ class CarManagementImplementation(CarManagement):
         if option == 3:
             value = value + "-01-01"
         stmt = self.conn.cursor()
-        stmt.execute(f"UPDATE vehicle_table SET {val_change} = ? WHERE vehicleID = ?", (value, vehicleID))
+        stmt.execute(f"UPDATE vehicle_table SET {val_change} = ? WHERE vehicle_id = ?", (value, vehicle_id))
         self.conn.commit()
         print("Value updated successfully")
 
-class CustomerManagementImplementation(CustomerManagement):
+class Customer_management_implementation(Customer_management):
     def __init__(self):
         self.conn = DBConnUtil.getConnection()
 
-    def addCustomer(self, customer: Customer):
+    def add_customer(self, customer: Customer):
         stmt = self.conn.cursor()
         cust_info = customer.get_customer()
-        cust_info = customer.get_customerID
+        cust_info = customer.get_customer_id
         stmt.execute(
-            f"INSERT INTO customer_table(customerID, first_name, last_name, email, phoneNumber) VALUES (?, ?, ?, ?,?)",
-            (cust_info['customerID'],cust_info['first_name'], cust_info['last_name'], cust_info['email'], cust_info['phoneNumber'])
+            f"INSERT INTO customer_table(customer_id, first_name, last_name, email, phone_number) VALUES (?, ?, ?, ?,?)",
+            (cust_info['customer_id'],cust_info['first_name'], cust_info['last_name'], cust_info['email'], cust_info['phone_number'])
         )
         self.conn.commit()
         return "Customer added successfully"
 
-    def removeCustomer(self, customerID):
-        self.findCustomer(customerID)
+    def remove_customer(self, customer_id):
+        self.find_customer(customer_id)
         stmt = self.conn.cursor()
-        stmt.execute(f"DELETE FROM customer_table WHERE customerID = ?", (customerID,))
+        stmt.execute(f"DELETE FROM customer_table WHERE customer_id = ?", (customer_id,))
         self.conn.commit()
         return "Customer removed successfully"
 
-    def listCustomer(self):
+    def list_customer(self):
         stmt = self.conn.cursor()
         stmt.execute(f"SELECT * FROM customer_table")
         rows = stmt.fetchall()
@@ -116,7 +115,7 @@ class CustomerManagementImplementation(CustomerManagement):
         return [Customer(*row) for row in rows]
 
     def update_customer(self, customer_id):
-        self.findCustomer(customer_id)
+        self.find_customer(customer_id)
         print("Select value to update ")
         print("1) First name")
         print("2) Last name")
@@ -131,85 +130,86 @@ class CustomerManagementImplementation(CustomerManagement):
         elif option == 3:
             val_change = "email"
         elif option == 4:
-            val_change = "phoneNumber"
+            val_change = "phone_number"
 
         value = input(f"New Value for the {val_change} : ")
         stmt = self.conn.cursor()
-        stmt.execute(f"UPDATE customer_table SET {val_change} = ? WHERE customerID = ?", (value, customer_id))
+        stmt.execute(f"UPDATE customer_table SET {val_change} = ? WHERE customer_id = ?", (value, customer_id))
         self.conn.commit()
         print("Value updated successfully")
 
-    def delete_customer(self, customerID):
-        self.findCustomer(customerID)
+    def delete_customer(self, customer_id):
+        self.find_customer(customer_id)
         stmt = self.conn.cursor()
-        stmt.execute(f"DELETE FROM customer_table WHERE customerID = ?", (customerID,))
+        stmt.execute(f"DELETE FROM customer_table WHERE customer_id = ?", (customer_id,))
         self.conn.commit()
         print("Customer deleted successfully")
 
-    def findCustomer(self, customerID):
+    def find_customer(self, customer_id):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM customer_table WHERE customerID = ?", (customerID,))
+        stmt.execute(f"SELECT * FROM customer_table WHERE customer_id = ?", (customer_id,))
         rows = stmt.fetchall()
         if not rows:
             raise CustomerrNotFoundException()
         return [Customer(*row) for row in rows]
 
-class LeaseManagementImplementation(LeaseManagement):
+class Lease_management_implementation(Lease_management):
     def __init__(self):
         self.conn = DBConnUtil.getConnection()
 
-    def createLease(self, customerID, carID, startDate, endDate, type):
+    def create_lease(self, lease_id, vehicle_id, customer_id, start_date, end_date, type):
         stmt = self.conn.cursor()
         try:
             stmt.execute(
-                f"INSERT INTO lease_table(vehicleId, customerID, startDate, endDate, type) VALUES (?, ?, ?, ?, ?)",
-                (carID, customerID, startDate, endDate, type)
+                f"INSERT INTO lease_table(lease_id, vehicle_id, customer_id, start_date, end_date, type) VALUES (?, ?, ?, ?, ?,?)",
+                (lease_id, vehicle_id, customer_id, start_date, end_date, type)
             )
         except Exception as e:
             print(f"Error while creating lease: {e}")
         self.conn.commit()
         return "Lease created successfully"
 
-    def returnCar(self, leaseID):
+    def return_car(self, lease_id):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM lease_table WHERE leaseID = ?", (leaseID,))
+        stmt.execute(f"SELECT * FROM lease_table WHERE lease_id = ?", (lease_id,))
         rows = stmt.fetchall()
         return [Lease(*row) for row in rows]
 
-    def listActiveLeases(self):
+    def list_active_leases(self):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM lease_table WHERE endDate > CURRENT_DATE")
+        stmt.execute(f"SELECT * FROM lease_table WHERE end_date > CURRENT_DATE")
         rows = stmt.fetchall()
         return [Lease(*row) for row in rows]
 
-    def listLeaseHistory(self):
+    def list_lease_history(self):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM lease_table WHERE endDate < CURRENT_DATE")
+        stmt.execute(f"SELECT * FROM lease_table WHERE end_date < CURRENT_DATE")
         rows = stmt.fetchall()
         return [Lease(*row) for row in rows]
+    
 
-class PaymentManagementImplementation(PaymentHandling):
+class Payment_management_implementation(Payment_handling):
     def __init__(self):
         self.conn = DBConnUtil.getConnection()
 
-    def recordPayment(self, leaseID, amount, paymentDate):
+    def record_payment(self,payment_id, lease_id, payment_date, amount):
         stmt = self.conn.cursor()
         stmt.execute(
-            f"INSERT INTO payment_table(leaseID, paymentDate, amount) VALUES (?, ?, ?)",
-            (leaseID, paymentDate, amount)
+            f"INSERT INTO payment_table(payment_id,lease_id, payment_date, amount) VALUES (?,?, ?, ?)",
+            (payment_id,lease_id, payment_date, amount)
         )
         self.conn.commit()
         return "Payment recorded successfully"
 
-    def getPayment(self):
+    def get_payment(self):
         stmt = self.conn.cursor()
         stmt.execute(f"SELECT * FROM payment_table")
         rows = stmt.fetchall()
-        return [{"paymentID": row[0], "leaseID": row[1], "paymentDate": row[2], "amount": row[3]} for row in rows]
+        return [{"payment_id": row[0], "lease_id": row[1], "payment_date": row[2], "amount": row[3]} for row in rows]
     
 
 #Initiliasing
-car_manage = CarManagementImplementation()
-customer_manage = CustomerManagementImplementation()
-lease_manage = LeaseManagementImplementation()
-payment_manage = PaymentManagementImplementation()
+car_manage = Car_management_implementation()
+customer_manage = Customer_management_implementation()
+lease_manage = Lease_management_implementation()
+payment_manage = Payment_management_implementation()
