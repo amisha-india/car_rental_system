@@ -23,6 +23,10 @@ class Car_management(ABC):
     def find_cars_by_id(self,vehicle_id):
         pass
 
+    @abstractmethod
+    def update_car(self,vehicle_id):
+        pass
+
 class Customer_management(ABC):
 
     @abstractmethod
@@ -39,6 +43,14 @@ class Customer_management(ABC):
 
     @abstractmethod
     def find_customer(self,customer_id):
+        pass
+    
+    @abstractmethod
+    def update_customer(self,customer_id):
+        pass
+
+    @abstractmethod
+    def delete_customer(self,customer_id):
         pass
 
 class Lease_management(ABC):
@@ -63,4 +75,8 @@ class Payment_handling():
 
     @abstractmethod
     def record_payment(self, lease:Lease,amount,payment_date):
+        pass
+
+    @abstractmethod
+    def get_payment(self):
         pass
