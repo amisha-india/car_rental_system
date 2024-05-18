@@ -1,16 +1,16 @@
 class Vehicle:
     def __init__(
         self,
-        vehicleID,
+        vehicle_id,
         make,
         model,
         Year,
-        dailyRate,
+        daily_rate,
         status,
         passenger_capacity,
         engine_capacity,
     ):
-        self.__vehicleID = vehicleID
+        self.__vehicle_id = vehicle_id
 
         self.__make = make
 
@@ -18,7 +18,7 @@ class Vehicle:
 
         self.__Year = Year
 
-        self.__dailyRate = dailyRate
+        self.__daily_rate = daily_rate
 
         self.__status = status
 
@@ -29,11 +29,11 @@ class Vehicle:
     # For getting the car details
     def get_car_details(self):
         return {
-            "vehicleID": self.__vehicleID,
+            "vehicle_id": self.__vehicle_id,
             "make": self.__make,
             "model": self.__model,
             "Year": self.__Year,
-            "dailyRate": self.__dailyRate,
+            "daily_rate": self.__daily_rate,
             "status": self.__status,
             "passenger_capacity": self.__passenger_capacity,
             "engine_capacity": self.__engine_capacity,
@@ -41,16 +41,16 @@ class Vehicle:
 
     def set_car_details(
         self,
-        vehicleID,
+        vehicle_id,
         make,
         model,
         Year,
-        dailyRate,
+        daily_rate,
         status,
         passenger_capacity,
         engine_capacity,
     ):
-        self.__vehicleID = vehicleID
+        self.__vehicle_id = vehicle_id
 
         self.__make = make
 
@@ -58,7 +58,7 @@ class Vehicle:
 
         self.__Year = Year
 
-        self.__dailyRate = dailyRate
+        self.__daily_rate = daily_rate
 
         self.__status = status
 
@@ -66,8 +66,8 @@ class Vehicle:
 
         self.__engine_capacity = engine_capacity
 
-    def get_vehicleID(self):
-        return self.__vehicleID
+    def get_vehicle_id(self):
+        return self.__vehicle_id
 
     def get_make(self):
         return self.__make
@@ -78,8 +78,8 @@ class Vehicle:
     def get_Year(self):
         return self.__Year
 
-    def get_dailyRate(self):
-        return self.__dailyRate
+    def get_daily_rate(self):
+        return self.__daily_rate
 
     def get_status(self):
         return self.__status
