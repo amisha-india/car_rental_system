@@ -56,7 +56,7 @@ class Customer_management(ABC):
 class Lease_management(ABC):
 
     @abstractmethod
-    def create_lease(self,customer_id,car_id,start_date,end_date,type):
+    def create_lease(self,customer_id,car_id,start_date,end_date,type,lease_id):
         pass
 
     @abstractmethod
@@ -70,11 +70,11 @@ class Lease_management(ABC):
     @abstractmethod
     def list_lease_history(self):
         pass
-
+    
 class Payment_handling():
 
     @abstractmethod
-    def record_payment(self, lease:Lease,amount,payment_date):
+    def record_payment(self, payment_id,lease:Lease,amount,payment_date):
         pass
 
     @abstractmethod
