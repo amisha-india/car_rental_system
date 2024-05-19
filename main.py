@@ -4,6 +4,7 @@ from entity import *
 
 
 print("🙌!!.....Welcome.......!!!🙌")
+print("!!.....THE CAR RENTAL SYSTEM.....!!")
 
 while True:
     
@@ -12,7 +13,7 @@ while True:
     print("2) Vehicle Operations")
     print("3) Lease Operations")
     print("4) Payment Operations")
-    print("5) End")
+    print("5) Exit")
 
     # car_manage = CarManagementImplementation()
     # customer_manage = CustomerManagementImplementation()
@@ -22,7 +23,9 @@ while True:
     option = int(input("Option : "))
 
     if option == 5:
+        print("Thank you!!")
         break
+
 
     #customer options
     elif option == 1:
@@ -38,16 +41,16 @@ while True:
 
         # Add customer
         if sub_option == 1 :
-            print("Please Give detail for the customer")
+            print("Please provied following details for the customer:")
 
             first_name = input("First Name : ")
             last_name = input("Last Name : ")
             email = input("Email : ")
-            phoneNumber = input("Phone Number : ")
-            customerID = input("Customer_id :")
-            print("Added successfully 🥳")
+            phone_number = input("Phone Number : ")
+            customer_id = input("Customer_id :")
+            print(" Added successfully ")
             try:
-                result = customer_manage.addCustomer(customer=Customer(0, first_name, last_name, email, phoneNumber))
+                result = customer_manage.add_customer(customer=Customer(customer_id, first_name, last_name, email, phone_number))
                 print(result)
                 print("User added successfully !")
             except Exception as e:
@@ -55,10 +58,10 @@ while True:
 
         # Remove Customer
         elif sub_option == 2:
-            customerID = int(input("User ID to remove (Please verify from the list customer option) : "))
+            customer_id = int(input("User ID to remove (Please verify from the list customer option) : "))
 
             try:
-                result = customer_manage.removeCustomer(customerID)
+                result = customer_manage.remove_customer(customer_id)
                 print(result)
                 print("User removed successfully !")
             except Exception as e:
@@ -67,7 +70,7 @@ while True:
         # List Customers
         elif sub_option == 3:
             try:
-                result = customer_manage.listCustomer()
+                result = customer_manage.list_customer()
                 for customer in result:
                     print(customer.get_customer())
             except Exception as e:
@@ -76,9 +79,9 @@ while True:
 
         # Find Customers
         elif sub_option == 4:
-            customerID = int(input("Customer to find : "))
+            customer_id = int(input("Customer to find : "))
             try:
-                result = customer_manage.findCustomer(customerID)
+                result = customer_manage.find_customer(customer_id)
                 for customer in result:
                     print(customer.get_customer())
             except Exception as e:
@@ -86,16 +89,16 @@ while True:
 
         #Update Customer
         elif sub_option == 5:
-            customerID = int(input("Customer to update : "))
+            customer_id = int(input("Customer to update : "))
             try:
-                customer_manage.update_customer(customer_id=customerID)
+                customer_manage.update_customer(customer_id = customer_id)
             except Exception as e:
                 print(f"Error encountered while updating customers : {e}")
 
         elif sub_option == 6:
-            customerID = int(input("Customer to Delete : "))
+            customer_id = int(input("Customer to Delete : "))
             try:
-                customer_manage.delete_customer(customerID=customerID)
+                customer_manage.delete_customer(customer_id = customer_id)
             except Exception as e:
                 print(f"Error encountered while updating customers : {e}")
 
@@ -121,17 +124,18 @@ while True:
 
         #Add Car
         if sub_option == 1:
-            print("fill the following information")
+            print("Please provied the following informations")
+            vehicle_id = int(input("Vehicle ID :"))
             make = input("Make of the car : ")
             model = input("Model of the car : ")
             Year = input("Year of the car : ")
-            dailyRate = input("Daily Rate : ")
+            daily_rate = float(input("Daily Rate : "))
             status = int(input("Available(1) or unavailable(0)"))
             passenger_capacity = input("Passenger capacity of the car : ")
             engine_capacity = input("Engine Capacity of the car : ")
 
             try:
-                result = car_manage.addCar(Vehicle(0, make, model, Year, dailyRate, status, passenger_capacity, engine_capacity))
+                result = car_manage.add_car(Vehicle(vehicle_id, make, model, Year, daily_rate, status, passenger_capacity, engine_capacity))
                 print(result)
                 print("Successfully added the car!")
             except Exception as e:
@@ -139,10 +143,10 @@ while True:
 
         # find car by id
         if sub_option == 2 :
-            vehicleID = int(input("Give car ID : "))
+            vehicle_id = int(input("Give car ID : "))
 
             try:
-                cars = car_manage.findCarsById(vehicleID)
+                cars = car_manage.find_cars_by_id(vehicle_id)
                 for car in cars:
                     print(car.get_car_details())
 
@@ -153,7 +157,7 @@ while True:
         elif sub_option == 3:
             print("List of the rented cars are : ")
             try:
-                cars = car_manage.listRentedCars()
+                cars = car_manage.list_rented_cars()
                 for car in cars:
                     print(car.get_car_details())
 
@@ -164,7 +168,7 @@ while True:
         elif sub_option == 4:
             print("List of the available cars are : ")
             try:
-                cars = car_manage.listAvailableCars()
+                cars = car_manage.list_available_cars()
                 for car in cars:
                     print(car.get_car_details())
 
@@ -173,17 +177,17 @@ while True:
 
         #Remove car
         elif sub_option == 5:
-            carID = int(input("Car ID to remove (Verify from list cars) : "))
+            vehicle_id = int(input("vehicle ID to remove (Verify from list cars) : "))
             try:
-                result = car_manage.removeCar(carID)
+                result = car_manage.remove_car(vehicle_id)
                 print("Successfully removed car")
             except Exception as e:
                 print(f"Error encountered while removing car : {e}")
 
         elif sub_option == 6 :
-            carID = int(input("Car ID to update (Verify from list cars) : "))
+            vehicle_id = int(input("Car ID to update (Verify from list cars) : "))
             try:
-                result = car_manage.update_car(carID)
+                result = car_manage.update_car(vehicle_id)
                 print("Successfully Updated car")
             except Exception as e:
                 print(f"Error encountered while updating car : {e}")
@@ -207,14 +211,15 @@ while True:
         #Create new lease
         if sub_option == 1:
             print("Fill following options")
-            vehicleId = input("Vehicle ID (select from the vehicle list) : ")
-            customerID = input("Customer ID (select from customer list) : ")
-            startDate = input("Start Date (yyyy-mm-dd) : ")
-            endDate = input("End date (yyyy-mm-dd) : ")
+            lease_id = int(input("Lease ID:"))
+            vehicle_id = input("Vehicle ID (select from the vehicle list) : ")
+            customer_id = input("Customer ID (select from customer list) : ")
+            start_date = input("Start Date (yyyy-mm-dd) : ")
+            end_date = input("End date (yyyy-mm-dd) : ")
             type = input("dailyBased(0) monthlyBased (1) : ")
 
             try:
-                ret = lease_manage.createLease(customerID, vehicleId, startDate, endDate, type)
+                ret = lease_manage.create_lease(lease_id, vehicle_id, customer_id, start_date, end_date, type)
                 print(ret)
                 print("Successfully created lease !")
             except Exception as e:
@@ -222,10 +227,10 @@ while True:
 
         #Get Lease
         elif sub_option == 2:
-            leaseID = int(input("Lease ID : "))
+            lease_id = int(input("Lease ID : "))
 
             try:
-                leases = lease_manage.returnCar(leaseID)
+                leases = lease_manage.return_car(lease_id)
                 for lease in leases:
                     print(lease.get_lease())
             except Exception as e:
@@ -236,7 +241,7 @@ while True:
             print("Active leases are")
 
             try:
-                leases = lease_manage.listActiveLeases()
+                leases = lease_manage.list_active_leases()
                 for lease in leases:
                     print(lease.get_lease())
             except Exception as e:
@@ -247,7 +252,7 @@ while True:
             print("Past leases are")
 
             try:
-                leases = lease_manage.listLeaseHistory()
+                leases = lease_manage.list_lease_history()
                 for lease in leases:
                     print(lease.get_lease())
             except Exception as e:
@@ -272,12 +277,13 @@ while True:
         #New payment
         if sub_option == 1:
             print("Give following information")
-            leaseID = int(input("LeaseID (verify from lease list) : "))
-            paymentDate = input("Payment Date (yyyy-mm-dd)")
+            payment_id = int(input("Payment_id:"))
+            lease_id = int(input("Lease_id (verify from lease list) : "))
+            payment_date = input("Payment Date (yyyy-mm-dd):")
             amount = int(input("Amount : "))
 
             try:
-                result = payment_manage.recordPayment(leaseID,amount,paymentDate)
+                result = payment_manage.record_payment(payment_id,lease_id,payment_date,amount)
                 print(result)
                 print("Successfully added payment!")
             except Exception as e:
@@ -287,7 +293,7 @@ while True:
         elif sub_option ==2:
             print("All payments are")
             try:
-                result = payment_manage.getPayment()
+                result = payment_manage.get_payment()
                 for pay in result:
                     print(pay)
 
@@ -306,7 +312,6 @@ while True:
 
 
 if __name__ == "__main__":
-    print("Welcome to the Car rental app")
-    
+    print("Good day😊😊")    
 
 
