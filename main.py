@@ -43,11 +43,11 @@ while True:
         if sub_option == 1 :
             print("Please provied following details for the customer:")
 
+            customer_id = input("Customer_id :")
             first_name = input("First Name : ")
             last_name = input("Last Name : ")
             email = input("Email : ")
             phone_number = input("Phone Number : ")
-            customer_id = input("Customer_id :")
             print(" Added successfully ")
             try:
                 result = customer_manage.add_customer(customer=Customer(customer_id, first_name, last_name, email, phone_number))
@@ -242,8 +242,11 @@ while True:
 
             try:
                 leases = lease_manage.list_active_leases()
-                for lease in leases:
-                    print(lease.get_lease())
+                if(len(leases)==0):
+                    print("No actice lease")
+                else:
+                    for lease in leases:
+                        print(lease.get_lease())
             except Exception as e:
                 print(f"Error encountered while getting lease : {e}")
 
