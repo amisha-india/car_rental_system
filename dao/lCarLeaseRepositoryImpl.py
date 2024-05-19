@@ -88,16 +88,31 @@ class Customer_management_implementation(Customer_management):
     def __init__(self):
         self.conn = DBConnUtil.getConnection()
 
+    # def add_customer(self, customer: Customer):
+    #     stmt = self.conn.cursor()
+    #     cust_info = customer.get_customer()
+    #     cust_info = customer.get_customer_id()
+    #     stmt.execute(
+    #         f"INSERT INTO customer_table(customer_id, first_name, last_name, email, phone_number) VALUES (?, ?, ?, ?,?)",
+    #         (cust_info['customer_id'],cust_info['first_name'], cust_info['last_name'], cust_info['email'], cust_info['phone_number'])
+    #     )
+    #     self.conn.commit()
+    #     return "Customer added successfully"
+
     def add_customer(self, customer: Customer):
         stmt = self.conn.cursor()
         cust_info = customer.get_customer()
-        cust_info = customer.get_customer_id
         stmt.execute(
             f"INSERT INTO customer_table(customer_id, first_name, last_name, email, phone_number) VALUES (?, ?, ?, ?,?)",
-            (cust_info['customer_id'],cust_info['first_name'], cust_info['last_name'], cust_info['email'], cust_info['phone_number'])
-        )
+            (cust_info['customer_id'], cust_info['first_name'],
+            cust_info['last_name'], cust_info['email'], cust_info['phone_number'])
+            )
         self.conn.commit()
         return "Customer added successfully"
+
+
+
+
 
     def remove_customer(self, customer_id):
         self.find_customer(customer_id)
@@ -177,13 +192,13 @@ class Lease_management_implementation(Lease_management):
 
     def list_active_leases(self):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM lease_table WHERE end_date > CURRENT_DATE")
+        stmt.execute(f"SELECT * FROM lease_table WHERE end_date > CURRENT_TIMESTAMP ")
         rows = stmt.fetchall()
         return [Lease(*row) for row in rows]
 
     def list_lease_history(self):
         stmt = self.conn.cursor()
-        stmt.execute(f"SELECT * FROM lease_table WHERE end_date < CURRENT_DATE")
+        stmt.execute(f"SELECT * FROM lease_table WHERE end_date < CURRENT_TIMESTAMP ")
         rows = stmt.fetchall()
         return [Lease(*row) for row in rows]
     
