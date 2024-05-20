@@ -88,17 +88,6 @@ class Customer_management_implementation(Customer_management):
     def __init__(self):
         self.conn = DBConnUtil.getConnection()
 
-    # def add_customer(self, customer: Customer):
-    #     stmt = self.conn.cursor()
-    #     cust_info = customer.get_customer()
-    #     cust_info = customer.get_customer_id()
-    #     stmt.execute(
-    #         f"INSERT INTO customer_table(customer_id, first_name, last_name, email, phone_number) VALUES (?, ?, ?, ?,?)",
-    #         (cust_info['customer_id'],cust_info['first_name'], cust_info['last_name'], cust_info['email'], cust_info['phone_number'])
-    #     )
-    #     self.conn.commit()
-    #     return "Customer added successfully"
-
     def add_customer(self, customer: Customer):
         stmt = self.conn.cursor()
         cust_info = customer.get_customer()
@@ -109,10 +98,6 @@ class Customer_management_implementation(Customer_management):
             )
         self.conn.commit()
         return "Customer added successfully"
-
-
-
-
 
     def remove_customer(self, customer_id):
         self.find_customer(customer_id)
@@ -222,7 +207,6 @@ class Payment_management_implementation(Payment_handling):
         rows = stmt.fetchall()
         return [{"payment_id": row[0], "lease_id": row[1], "payment_date": row[2], "amount": row[3]} for row in rows]
     
-
 #Initiliasing
 car_manage = Car_management_implementation()
 customer_manage = Customer_management_implementation()
