@@ -303,14 +303,12 @@ while True:
             except Exception as e:
                 print(f"Error encountered while adding payment : {e}")
 
-        elif sub_option == 5:
+
+        elif sub_option == 3:
             continue
 
         else:
             print("select valid option")
-
-    else:
-        print("select valid option")
 
 
 
